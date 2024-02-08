@@ -33,5 +33,6 @@ public class Main {
 
         Collections.replaceAll(deck, Card.getFaceCard(Card.Suit.CLUB, 'J'), kingOfSpades);
         System.out.println("Amount of kings of spades: " +Collections.frequency(deck, kingOfSpades));
+
     }
 }
