@@ -6,10 +6,10 @@ import java.util.List;
 public record Card(Suit suit, String face, int rank) {
 
     public enum Suit {
-        CLUB, DIAMOND, HEART, SPADE;
+        HEART, DIAMOND, CLUB, SPADE;
 
         public char getImage() {
-            return (new char[]{9827, 9830, 9829, 9824})[this.ordinal()];
+            return (new char[]{9829, 9830, 9827, 9824})[this.ordinal()];
         }
     }
 
@@ -24,7 +24,7 @@ public record Card(Suit suit, String face, int rank) {
     public static Card getNumericCard(Suit suit, int cardNumber) {
 
         if (cardNumber > 1 && cardNumber < 11) {
-            return new Card(suit, String.valueOf(cardNumber), cardNumber - 2);
+            return new Card(suit, String.valueOf(cardNumber), cardNumber);
         }
         System.out.println("Invalid Numeric card selected");
         return null;
@@ -34,7 +34,12 @@ public record Card(Suit suit, String face, int rank) {
 
         int charIndex = "JQKA".indexOf(abbrev);
         if (charIndex > -1) {
-            return new Card(suit, "" + abbrev, charIndex + 9);
+            if (charIndex == 3) {
+                return new Card(suit, "" + abbrev, 11);
+            }
+            else {
+                return new Card(suit, "" + abbrev, 10);
+            }
         }
         System.out.println("Invalid Face card selected");
         return null;

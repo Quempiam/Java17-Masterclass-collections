@@ -1,16 +1,19 @@
 package dev.lpa;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player {
+    private String name;
     private List<Card> hand;
     private int handValue;
     private int score;
     private boolean stand;
     private boolean bust;
 
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         hand = new ArrayList<>();
         score = 0;
         handValue = 0;
@@ -62,8 +65,16 @@ public class Player {
 
     void draw(Card card) {
         hand.add(card);
-//        update hand value here
+        handValue += card.rank();
+        if (handValue > 21) {
+            bust = true;
+        }
+        Collections.sort(hand, Game.cardComparator);
     }
 
+    void showHand() {
+        System.out.printf("%s's hand:\n%n", name);
+        Card.printDeck(hand);
+    }
 
 }
