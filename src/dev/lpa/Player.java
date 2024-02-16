@@ -11,6 +11,7 @@ public class Player {
     private int score;
     private boolean stand;
     private boolean bust;
+    private boolean blackJack;
 
     public Player(String name) {
         this.name = name;
@@ -29,6 +30,7 @@ public class Player {
         handValue = 0;
         stand = false;
         bust = false;
+        blackJack = false;
     }
 
     /**
@@ -63,11 +65,27 @@ public class Player {
         this.stand = stand;
     }
 
+    public boolean isBlackJack() {
+        return blackJack;
+    }
+
+    public Card getHighestCard() {
+        if (hand.isEmpty()) {
+            return null;
+        }
+        else {
+            return hand.get(0);
+        }
+    }
+
     void draw(Card card) {
         hand.add(card);
         handValue += card.rank();
         if (handValue > 21) {
             bust = true;
+        }
+        else if (handValue == 21) {
+            blackJack = true;
         }
         Collections.sort(hand, Game.cardComparator);
     }

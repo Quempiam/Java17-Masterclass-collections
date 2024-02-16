@@ -8,7 +8,10 @@ public class Game {
     private List<Card> gameDeck;
 
     public static final Comparator<Card> cardComparator = Comparator.comparing(Card::rank).thenComparing(Card::suit);
-    private Iterator<Card> iterator;
+    private final Comparator<Player> playerComparator =
+            (p1, p2) -> cardComparator.compare(p1.getHighestCard(), p2.getHighestCard());
+
+    private Iterator<Card> deckIterator;
 
     public Game(int numOfPlayers, String[] names) {
         players = new ArrayList<>(numOfPlayers + 1);
@@ -19,21 +22,19 @@ public class Game {
         activePlayerIndex = 0;
         gameDeck = Card.getStandardDeck();
         Collections.shuffle(gameDeck);
-        iterator = gameDeck.listIterator();
+        deckIterator = gameDeck.listIterator();
     }
 
-    boolean firstDeal() {
-        for (Player p : players) {
+    public void firstDeal() {
+        players.forEach(player -> {
             for (int i = 0; i < 2; i++) {
-                if (iterator.hasNext()) {
-                    p.draw(iterator.next());
-                }
-                else {
-                    return false;
+                if (deckIterator.hasNext()) {
+                    player.draw(deckIterator.next());
+                } else {
+                    resetRound();
                 }
             }
-        }
-        return true;
+        });
     }
 
     boolean isGameOver() {
@@ -47,6 +48,22 @@ public class Game {
 
     void resetRound() {
         Collections.shuffle(gameDeck);
-        iterator = gameDeck.listIterator();
+        deckIterator = gameDeck.listIterator();
+    }
+
+    public Player getRoundWinner() {
+        List<Player> winnerList = new ArrayList<>(players.size());
+        players.forEach(player -> {
+            if (!player.isBust()) winnerList.add(player);
+        });
+        Collections.sort(winnerList, playerComparator);
+        return winnerList.get(0);
+    }
+
+    public boolean hasPlayerBlackJack() {
+        for (Player p : players) {
+            if (p.isBlackJack()) return true;
+        }
+        return false;
     }
 }
