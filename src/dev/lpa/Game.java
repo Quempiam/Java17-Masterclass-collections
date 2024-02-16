@@ -6,18 +6,16 @@ public class Game {
     private List<Player> players;
     private int activePlayerIndex;
     private List<Card> gameDeck;
-
     public static final Comparator<Card> cardComparator = Comparator.comparing(Card::rank).thenComparing(Card::suit);
     private final Comparator<Player> playerComparator =
             (p1, p2) -> cardComparator.compare(p1.getHighestCard(), p2.getHighestCard());
-
     private Iterator<Card> deckIterator;
 
-    public Game(int numOfPlayers, String[] names) {
-        players = new ArrayList<>(numOfPlayers + 1);
+    public Game(String[] names) {
+        players = new ArrayList<>( names.length + 1);
         players.add(new Dealer());
-        for (int i = 0; i < numOfPlayers; i++) {
-            players.add(new Player(names[i]));
+        for (String name : names) {
+            players.add(new Player(name));
         }
         activePlayerIndex = 0;
         gameDeck = Card.getStandardDeck();
