@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a6463eb-5be0-43c5-b2bf-25c1c16295d7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/dev/utils/UserInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CollectionsMethods/dev/lpa/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CollectionsMethods/dev/lpa/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CollectionsMethods/dev/lpa/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CollectionsMethods/dev/lpa/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CollectionsMethods/dev/lpa/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CollectionsMethods/dev/lpa/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/lpa/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/lpa/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/lpa/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/lpa/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dev/lpa/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/lpa/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/lpa/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/lpa/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dev/utils/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dev/utils/UserInput.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

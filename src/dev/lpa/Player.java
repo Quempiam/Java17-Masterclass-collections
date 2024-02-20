@@ -41,6 +41,10 @@ public class Player {
         score = 0;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getHandValue() {
         return handValue;
     }
@@ -61,8 +65,8 @@ public class Player {
         return bust;
     }
 
-    public void setStand(boolean stand) {
-        this.stand = stand;
+    public void setStand() {
+        this.stand = true;
     }
 
     public boolean isBlackJack() {
@@ -83,16 +87,18 @@ public class Player {
         handValue += card.rank();
         if (handValue > 21) {
             bust = true;
+            System.out.printf("Bust! %s, You are out of this round.\n", name);
         }
         else if (handValue == 21) {
             blackJack = true;
+            System.out.println("BLACKJACK!");
         }
         Collections.sort(hand, Game.cardComparator);
     }
 
     void showHand() {
-        System.out.printf("%s's hand:\n%n", name);
-        Card.printDeck(hand);
+        System.out.printf("%s's hand:\n", name);
+        Card.printDeck(hand, null, 1);
     }
 
 }

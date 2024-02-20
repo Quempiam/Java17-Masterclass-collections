@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import dev.utils.UserInput;
+
 import java.util.*;
 
 public class Game {
@@ -23,19 +25,54 @@ public class Game {
         deckIterator = gameDeck.listIterator();
     }
 
-    public void firstDeal() {
-        players.forEach(player -> {
-            for (int i = 0; i < 2; i++) {
-                if (deckIterator.hasNext()) {
-                    player.draw(deckIterator.next());
-                } else {
-                    resetRound();
-                }
-            }
-        });
+    private boolean dealCard(Player player) {
+        int count = 0;
+        while (!deckIterator.hasNext()) {
+            resetDeck();
+            count++;
+            if (count >3) return false;
+        }
+        player.draw(deckIterator.next());
+        return true;
     }
 
-    boolean isGameOver() {
+    public boolean firstDeal() {
+        for (Player player : players) {
+            for (int i = 0; i < 2; i++) {
+                if (!dealCard(player)) return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean deal() {
+        for (Player player : players) {
+            if (!player.isStand()){
+                if (player instanceof Dealer dealer) {
+                    if (dealer.wantDraw()) {
+                        if (!dealCard(dealer)) return false;
+                    }
+                    else {
+                        dealer.setStand();
+                    }
+                }
+                else {
+                    System.out.println("=".repeat(20));
+                    player.showHand();
+                    System.out.printf("%s, your hand value is %d.\n", player.getName(), player.getHandValue());
+                    if (UserInput.getDrawOrStand()) {
+                        if (!dealCard(player)) return false;
+                    }
+                    else {
+                        player.setStand();
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean isGameOver() {
         for (Player p : players) {
             if (p.getScore() >= 3) {
                 return true;
@@ -44,9 +81,22 @@ public class Game {
         return false;
     }
 
-    void resetRound() {
+    public boolean isRoundOver() {
+        if (hasPlayerBlackJack()) return true;
+        for (Player player :players) {
+            if (!player.isStand() && !player.isBust()) return false;
+        }
+        return true;
+    }
+
+    private void resetDeck() {
         Collections.shuffle(gameDeck);
         deckIterator = gameDeck.listIterator();
+    }
+
+    public void resetRound() {
+        resetDeck();
+        players.forEach(Player::resetHand);
     }
 
     public Player getRoundWinner() {
@@ -58,7 +108,7 @@ public class Game {
         return winnerList.get(0);
     }
 
-    public boolean hasPlayerBlackJack() {
+    private boolean hasPlayerBlackJack() {
         for (Player p : players) {
             if (p.isBlackJack()) return true;
         }
