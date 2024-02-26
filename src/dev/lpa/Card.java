@@ -6,10 +6,10 @@ import java.util.List;
 public record Card(Suit suit, String face, int rank) {
 
     public enum Suit {
-        HEART, DIAMOND, CLUB, SPADE;
+        SPADE, CLUB, DIAMOND, HEART;
 
         public char getImage() {
-            return (new char[]{9829, 9830, 9827, 9824})[this.ordinal()];
+            return (new char[]{9824, 9827, 9830, 9829})[this.ordinal()];
         }
     }
 
@@ -18,7 +18,7 @@ public record Card(Suit suit, String face, int rank) {
 
         int index = face.equals("10") ? 2 : 1;
         String faceString = face.substring(0, index);
-        return "%s%c(%d)".formatted(faceString, suit.getImage(), rank);
+        return "%s%c".formatted(faceString, suit.getImage());
     }
 
     public static Card getNumericCard(Suit suit, int cardNumber) {

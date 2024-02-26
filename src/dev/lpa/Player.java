@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Player {
-    private String name;
-    private List<Card> hand;
+    private final String name;
+    private final List<Card> hand;
     private int handValue;
     private int score;
     private boolean stand;
@@ -93,7 +93,7 @@ public class Player {
             blackJack = true;
             System.out.println("BLACKJACK!");
         }
-        Collections.sort(hand, Game.cardComparator);
+        Collections.sort(hand, Game.cardComparator.reversed());
     }
 
     void showHand() {
@@ -101,4 +101,7 @@ public class Player {
         Card.printDeck(hand, null, 1);
     }
 
+    boolean isPlaying() {
+        return !stand && !bust;
+    }
 }

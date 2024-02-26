@@ -2,7 +2,6 @@ package dev.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserInput {
@@ -20,23 +19,21 @@ public class UserInput {
                 =================================================
                 
                 """);
-        do {
+        while (i < 4) {
             System.out.printf("Write name of Player %d/3 or write 'start' to start the game\n", i);
 
             try {
                 input = scanner.nextLine();
+                if (input.isBlank()) throw new Exception();
             } catch (Exception e) {
                 System.out.println("Name can't be empty");
                 continue;
             }
-            if (input.strip() == "") {
-                System.out.println("Name can't be empty");
-                continue;
-            }
+            if (input.equalsIgnoreCase("start")) break;
             names.add(input);
             i++;
 
-        } while (i < 4 || !input.equalsIgnoreCase("start"));
+        }
 
         return names.toArray(new String[0]);
     }
